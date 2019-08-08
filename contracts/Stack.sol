@@ -18,8 +18,6 @@ contract Stack {
     }
 
     function push(uint _value) public {
-        require(counter < 11, "stack is at over capacity");
-
         array.push(_value);
         counter += 1;
     }

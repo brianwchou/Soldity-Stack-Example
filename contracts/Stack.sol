@@ -1,9 +1,8 @@
 pragma solidity >=0.4.25 <0.6.0;
 
 contract Stack {
-    uint[10] private array;
+    uint[] private array;
     uint private counter = 0;
-    uint private constant MAX_SIZE = 10;
 
     function peek() public view returns(uint) {
         require(counter > 0, "stack needs to have a value");
@@ -21,7 +20,7 @@ contract Stack {
     function push(uint _value) public {
         require(counter < 11, "stack is at over capacity");
 
-        array[counter] = _value;
+        array.push(_value);
         counter += 1;
     }
 

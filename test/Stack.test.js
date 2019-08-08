@@ -5,43 +5,46 @@ contract('Stack', async () => {
     
     var stack;
 
-    beforeEach(async () => {
+    beforeEach(async() => {
         stack = await Stack.new()
     })
 
-    it("push() increments size of stack", async () => {
+    it('push() increments size of stack', async() => {
         await stack.push(5)
         let value = await stack.getSize()
-        assert.equal(value.toNumber(), 1, "value was not pushed")
+        assert.equal(value.toNumber(), 1, 'value was not pushed')
     });
 
-    it("getSize() returns length with stack empty", async () => {
+    it('push() fails when stack is at capacity', async() => {
+        for (let i = 0; i < 10; i++) { await stack.push(5) }
+        truffleAssert.fails(stack.push(5))
+    })
+
+    it('peek() reverts with stack empty', async() => {
+        truffleAssert.reverts(stack.peek(), 'stack needs to have a value')
+    })
+
+    it('peek() retrieves pushed value', async() => {
+        await stack.push(5)
+        let value = await stack.peek()
+        assert.equal(value.toNumber(), 5, 'stack needs to have values')
+    })
+
+    it('getSize() returns length with stack empty', async() => {
         let value = await stack.getSize()
         assert.equal(value.toNumber(), 0, 'stack is not empty')
     })
 
-     it("peek() test with stack empty", async () => {
-         truffleAssert.fails(stack.peek(), truffleAssert.ErrorType.REVERT, "stack needs to have a value")
-     })
+    it('pop() fails with stack empty', async() => {
+        truffleAssert.reverts(stack.pop(), 'stack needs to have values')
+    })
 
-    // it("pop() test with stack empty", async () => {
-    //     truffleAssert.fails(await stack.pop(), truffleAssert.ErrorType.REVERT ,'cannot pop from an empty stack')
-    // })
+    it('pop() removes top', async() => {
+        let value = await stack.getSize()
+        assert.equal(value.toNumber(), 0, 'stack is not empty')
 
-    // it("getSize() returns length with stack filled", () => {
-
-    // })
-
-    // it("do something", () => {
-
-    // })
-
-    // it("do something", () => {
-
-    // })
-
-    // it("do something", () => {
-
-    // })
-
+        await stack.push(5)
+        value = await stack.getSize()
+        assert.equal(value.toNumber(), 1, 'stack needs to have values')
+    })
 })

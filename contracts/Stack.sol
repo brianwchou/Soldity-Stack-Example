@@ -8,7 +8,7 @@ contract Stack {
     function peek() public view returns(uint) {
         require(counter > 0, "stack needs to have a value");
 
-        return array[counter];
+        return array[counter - 1];
     }
 
     function pop() public {
@@ -19,7 +19,7 @@ contract Stack {
     }
 
     function push(uint _value) public {
-        require(counter <= 10, "stack needs to be at under capacity");
+        require(counter < 11, "stack is at over capacity");
 
         array[counter] = _value;
         counter += 1;

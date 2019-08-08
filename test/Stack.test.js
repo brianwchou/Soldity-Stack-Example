@@ -20,9 +20,9 @@ contract('Stack', async () => {
         assert.equal(value.toNumber(), 0, 'stack is not empty')
     })
 
-    // it("peek() test with stack empty", async () => {
-    //     truffleAssert.fails(stack.peek(), truffleAssert.ErrorType.REVERT, "stack had items")
-    // })
+     it("peek() test with stack empty", async () => {
+         truffleAssert.fails(stack.peek(), truffleAssert.ErrorType.REVERT, "stack needs to have a value")
+     })
 
     // it("pop() test with stack empty", async () => {
     //     truffleAssert.fails(await stack.pop(), truffleAssert.ErrorType.REVERT ,'cannot pop from an empty stack')

@@ -15,11 +15,6 @@ contract('Stack', async () => {
         assert.equal(value.toNumber(), 1, 'value was not pushed')
     });
 
-    it('push() fails when stack is at capacity', async() => {
-        for (let i = 0; i < 10; i++) { await stack.push(5) }
-        truffleAssert.fails(stack.push(5))
-    })
-
     it('peek() reverts with stack empty', async() => {
         truffleAssert.reverts(stack.peek(), 'stack needs to have a value')
     })

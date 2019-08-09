@@ -12,7 +12,6 @@ contract Stack {
     function pop() public {
         require(data.length > 0, "stack needs to have values");
 
-        delete data[data.length - 1];
         data.length -= 1;
     }
 

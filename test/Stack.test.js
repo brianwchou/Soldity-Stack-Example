@@ -1,12 +1,23 @@
-const Stack = artifacts.require('Stack');
-const truffleAssert = require('truffle-assertions');
+const Stack = artifacts.require('Stack')
+const truffleAssert = require('truffle-assertions')
+const timeUtil = require('ganache-time-traveler')
 
 contract('Stack', async () => {
     
-    var stack;
+    let stack;
+    let snapshotId;
+
+    before(async() => {
+        stack = await Stack.new()
+    })
 
     beforeEach(async() => {
-        stack = await Stack.new()
+        let snapshot = await timeUtil.takeSnapshot()
+        snapshotId = snapshot.result
+    })
+
+    afterEach(async() => {
+        await timeUtil.revertToSnapShot(snapshotId)
     })
 
     it('push() increments size of stack', async() => {
@@ -16,7 +27,7 @@ contract('Stack', async () => {
     });
 
     it('peek() reverts with stack empty', async() => {
-        truffleAssert.reverts(stack.peek(), 'stack needs to have a value')
+        await truffleAssert.reverts(stack.peek(), 'stack needs to have a value')
     })
 
     it('peek() retrieves pushed value', async() => {
@@ -31,7 +42,7 @@ contract('Stack', async () => {
     })
 
     it('pop() fails with stack empty', async() => {
-        truffleAssert.reverts(stack.pop(), 'stack needs to have values')
+        await truffleAssert.reverts(stack.pop(), 'stack needs to have values')
     })
 
     it('pop() removes top', async() => {

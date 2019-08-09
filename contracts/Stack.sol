@@ -2,27 +2,25 @@ pragma solidity >=0.4.25 <0.6.0;
 
 contract Stack {
     uint[] private data;
-    uint private counter = 0;
 
     function peek() public view returns(uint) {
-        require(counter > 0, "stack needs to have a value");
+        require(data.length > 0, "stack needs to have a value");
 
-        return data[counter - 1];
+        return data[data.length - 1];
     }
 
     function pop() public {
-        require(counter > 0, "stack needs to have values");
+        require(data.length > 0, "stack needs to have values");
 
-        delete data[counter - 1];
-        counter -= 1;
+        delete data[data.length - 1];
+        data.length -= 1;
     }
 
     function push(uint _value) public {
         data.push(_value);
-        counter += 1;
     }
 
     function getSize() public view returns(uint) {
-        return counter;
+        return data.length;
     }
 }

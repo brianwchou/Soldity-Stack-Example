@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node: 8.16.0-jessie
+      steps:
+        - checkout
+        - run:
+            name: Install
+            command: npm install
+        - run:
+            name: Compile
+            command: npx truffle compile
+        - run:
+            name: Test
+            command: npx truffle test

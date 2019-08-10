@@ -16,7 +16,6 @@ contract('Stack', async () => {
         snapshotId = snapshot.result
     })
 
-    
     afterEach(async() => {
         await timeUtil.revertToSnapShot(snapshotId)
     })

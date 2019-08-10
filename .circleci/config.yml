@@ -7,13 +7,10 @@ jobs:
       - checkout
       - run:
           name: Install
-          command: npm install
-      - run:
-          name: Compile
-          command: npx truffle compile
+          command: yarn
       - run:
           name: Test
-          command: npx truffle test
+          command: yarn truffle test
           
 workflows:
   version: 2

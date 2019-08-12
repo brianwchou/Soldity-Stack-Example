@@ -15,13 +15,13 @@ contract Stack {
     function pop() public {
         require(data.length > 0, "stack needs to have values");
 
-        emit Push(data[data.length - 1]);
+        emit Pop(data[data.length - 1]);
 
         data.length -= 1;
     }
 
     function push(uint256 _value) public {
-        emit Pop(_value);
+        emit Push(_value);
 
         data.push(_value);
     }

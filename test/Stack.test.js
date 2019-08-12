@@ -24,7 +24,9 @@ contract('Stack', async () => {
         let tx = await stack.push(5)
         let value = await stack.getSize()
 
-        truffleAssert.eventEmitted(tx, 'PushEvent', {param1: 5})
+        truffleAssert.eventEmitted(tx, 'PushEvent', ev => {
+            return ev.value.toNumber() === 5 
+        }, "PushEvent should be emitted with correct parameters")
 
         assert.equal(value.toNumber(), 1, 'value was not pushed')
     });

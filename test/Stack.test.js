@@ -61,6 +61,6 @@ contract('Stack', async () => {
         }, "PopEvent should be emitted with correct parameters")
 
         size = await stack.getSize()
-        assert.equal(size.toNumber(), 0, 'stack needs to have values')
+        assert.equal(size.toNumber(), 0, 'stack should be empty after pop')
     })
 })

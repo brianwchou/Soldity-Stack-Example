@@ -15,15 +15,13 @@ contract Stack {
     function pop() public {
         require(data.length > 0, "stack needs to have values");
 
-        emit Pop(data[data.length - 1]);
-
         data.length -= 1;
+        emit Pop(data[data.length - 1]);
     }
 
     function push(uint256 _value) public {
-        emit Push(_value);
-
         data.push(_value);
+        emit Push(_value);
     }
 
     function getSize() public view returns(uint256) {

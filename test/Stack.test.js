@@ -58,6 +58,6 @@ contract('Stack', async () => {
         let tx = await stack.pop()
         truffleAssert.eventEmitted(tx, 'PopEvent', ev => {
             return ev.value.toNumber() === 5 
-        }, "PushEvent should be emitted with correct parameters")
+        }, "PopEvent should be emitted with correct parameters")
     })
 })

@@ -15,9 +15,8 @@ contract Stack {
     function pop() public {
         require(data.length > 0, "stack needs to have values");
 
-        uint256 popped = data[data.length - 1];
+        emit PopEvent(data[data.length - 1]);
         data.length -= 1;
-        emit PopEvent(popped);
     }
 
     function push(uint256 _value) public {

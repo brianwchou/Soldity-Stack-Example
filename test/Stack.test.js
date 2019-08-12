@@ -59,5 +59,8 @@ contract('Stack', async () => {
         truffleAssert.eventEmitted(tx, 'PopEvent', ev => {
             return ev.value.toNumber() === 5 
         }, "PopEvent should be emitted with correct parameters")
+
+        size = await stack.getSize()
+        assert.equal(size.toNumber(), 0, 'stack needs to have values')
     })
 })

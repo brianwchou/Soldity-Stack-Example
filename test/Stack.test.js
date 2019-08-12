@@ -21,8 +21,11 @@ contract('Stack', async () => {
     })
 
     it('push() increments size of stack', async() => {
-        await stack.push(5)
+        let tx = await stack.push(5)
         let value = await stack.getSize()
+
+        truffleAssert.eventEmitted(tx, 'PushEvent', {param1: 5})
+
         assert.equal(value.toNumber(), 1, 'value was not pushed')
     });
 

@@ -21,8 +21,13 @@ contract('Stack', async () => {
     })
 
     it('push() increments size of stack', async() => {
-        await stack.push(5)
+        let tx = await stack.push(5)
         let value = await stack.getSize()
+
+        truffleAssert.eventEmitted(tx, 'PushEvent', ev => {
+            return ev.value.toNumber() === 5 
+        }, "PushEvent should be emitted with correct parameters")
+
         assert.equal(value.toNumber(), 1, 'value was not pushed')
     });
 
@@ -46,11 +51,16 @@ contract('Stack', async () => {
     })
 
     it('pop() removes top', async() => {
-        let value = await stack.getSize()
-        assert.equal(value.toNumber(), 0, 'stack is not empty')
-
         await stack.push(5)
-        value = await stack.getSize()
-        assert.equal(value.toNumber(), 1, 'stack needs to have values')
+        let size = await stack.getSize()
+        assert.equal(size.toNumber(), 1, 'stack needs to have values')
+
+        let tx = await stack.pop()
+        truffleAssert.eventEmitted(tx, 'PopEvent', ev => {
+            return ev.value.toNumber() === 5 
+        }, "PopEvent should be emitted with correct parameters")
+
+        size = await stack.getSize()
+        assert.equal(size.toNumber(), 0, 'stack should be empty after pop')
     })
 })

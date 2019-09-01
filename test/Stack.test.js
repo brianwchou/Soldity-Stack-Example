@@ -17,7 +17,7 @@ contract('Stack', async () => {
     })
 
     afterEach(async() => {
-        await timeUtil.revertToSnapShot(snapshotId)
+        await timeUtil.revertToSnapshot(snapshotId)
     })
 
     it('test peek() with empty stack', async() => {

@@ -8,9 +8,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "truffle": "^5.0.5",
     "ganache-cli": "^6.3.0",
-    "ganache-time-traveler": "^1.0.2",
+    "ganache-time-traveler": "^1.0.5",
+    "truffle": "^5.0.5",
     "truffle-assertions": "^0.9.1"
   },
   "scripts": {

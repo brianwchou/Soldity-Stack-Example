@@ -71,6 +71,13 @@ contract('Stack', async () => {
         let size = await stack.getSize.call()
         assert.equal(size.toNumber(), 1, 'stack needs to have values')
 
+        // dry run of stack pop
+        let value = await stack.pop.call();
+        assert.equal(value.toNumber(), 5);
+
+        size = await stack.getSize.call()
+        assert.equal(size.toNumber(), 1, 'stack should have a value after pop.call()')
+
         let tx = await stack.pop()
 
         truffleAssert.eventEmitted(tx, 'PopEvent', ev => {

@@ -7,10 +7,6 @@ contract('Stack', async () => {
     let stack;
     let snapshotId;
 
-    before(async() => {
-        stack = await Stack.new()
-    })
-
     beforeEach(async() => {
         let snapshot = await timeUtil.takeSnapshot()
         snapshotId = snapshot.result
@@ -19,9 +15,13 @@ contract('Stack', async () => {
     afterEach(async() => {
         await timeUtil.revertToSnapshot(snapshotId)
     })
+    
+  before(async() => {
+        stack = await Stack.new()
+    })
 
     it('test peek() with empty stack', async() => {
-        await truffleAssert.reverts(stack.peek.call(), 'stack needs to have a value')
+        await truffleAssert.reverts(stack.peek.call(), 'stack is empty')
     })
 
     it('test push() with empty stack', async() => {
@@ -36,7 +36,7 @@ contract('Stack', async () => {
     })
 
     it('test pop() with empty stack', async() => {
-        await truffleAssert.reverts(stack.pop(), 'stack needs to have values')
+        await truffleAssert.reverts(stack.pop(), 'stack is empty')
     })
 
     it('test getSize() with empty stack', async() => {
@@ -75,14 +75,11 @@ contract('Stack', async () => {
         let value = await stack.pop.call();
         assert.equal(value.toNumber(), 5);
 
-        size = await stack.getSize.call()
-        assert.equal(size.toNumber(), 1, 'stack should have a value after pop.call()')
-
         let tx = await stack.pop()
 
         truffleAssert.eventEmitted(tx, 'PopEvent', ev => {
-            return ev.value.toNumber() === 5 
-        }, "PopEvent should be emitted with correct parameters")
+            return ev.value.toNumber() === value.toNumber()
+        }, "PopEvent should be emitted with expected pop value")
 
         size = await stack.getSize.call()
         assert.equal(size.toNumber(), 0, 'stack should be empty after pop')

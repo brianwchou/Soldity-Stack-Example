@@ -6,14 +6,14 @@ contract Stack {
     event PushEvent(uint256 value);
     event PopEvent(uint256 value);
 
-    function peek() public view returns(uint256) {
-        require(data.length > 0, "stack needs to have a value");
+    function peek() external view returns(uint256) {
+        require(data.length > 0, "stack is empty");
 
         return data[data.length - 1];
     }
 
-    function pop() public returns(uint256){
-        require(data.length > 0, "stack needs to have values");
+    function pop() external returns(uint256){
+        require(data.length > 0, "stack is empty");
 
         uint256 retrievedValue = data[data.length - 1];
 
@@ -23,12 +23,12 @@ contract Stack {
         return retrievedValue;
     }
 
-    function push(uint256 _value) public {
+    function push(uint256 _value) external {
         data.push(_value);
         emit PushEvent(_value);
     }
 
-    function getSize() public view returns(uint256) {
+    function getSize() external view returns(uint256) {
         return data.length;
     }
 }

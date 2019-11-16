@@ -12,11 +12,15 @@ contract Stack {
         return data[data.length - 1];
     }
 
-    function pop() public {
+    function pop() public returns(uint256){
         require(data.length > 0, "stack needs to have values");
 
-        emit PopEvent(data[data.length - 1]);
+        uint256 retrievedValue = data[data.length - 1];
+
+        emit PopEvent(retrievedValue);
+
         data.length -= 1;
+        return retrievedValue;
     }
 
     function push(uint256 _value) public {
